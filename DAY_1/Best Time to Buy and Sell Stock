@@ -1,0 +1,58 @@
+APPROACH - 1
+// TC - O(N)
+// SC - O(1)
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        
+        int maxProfit = 0;
+        
+        int buyStock = prices[0];
+        
+        for(int i=1; i<prices.size(); i++){
+            // stock buy condition
+            if(buyStock>prices[i]){
+                buyStock = prices[i];
+            }else{
+                // stock sell condition 
+                int profit = prices[i] - buyStock;
+                maxProfit = max(maxProfit, profit);
+            }
+        }
+            
+            return maxProfit ;
+       }
+};
+
+// APPROACH - 2
+// TC - O(N^2)
+// SC - O(1)
+
+class Solution {
+    
+   int findMax(vector<int> prices, int i){
+        int ans = prices[i];
+        for(int j =i+1; j<prices.size(); j++){
+            if(ans<prices[j]){
+                ans = prices[j];
+            }
+        }
+        
+        return ans ;
+    } 
+    
+public:
+    int maxProfit(vector<int>& prices) {
+            int max1;
+            int ans = INT_MIN ;
+        for(int i = 0 ; i<prices.size(); i++ ){
+            
+            max1 = findMax(prices, i);
+            ans = max(max1 - prices[i], ans);
+            
+        }
+        
+        return ans ; 
+    }
+};
